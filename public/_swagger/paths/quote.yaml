@@ -1,0 +1,157 @@
+paths:
+  /quotes/{movie:id}:
+    post:
+      parameters:
+        - in: path
+          name: movie:id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Quotes
+      security:
+        - bearerAuth: []
+      summary: post quotes
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                quote_en:
+                  type: string
+                  example: hello father
+                quote_ka:
+                  type: string
+                  example: გამარჯობა მამა
+                thumbnail:
+                  type: string
+                  format: binary
+              required:
+                - quote_en
+                - quote_ka
+                - thumbnail
+      responses:
+        "200":
+          description: quote create
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+                  - type: object
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /quotes:
+    get:
+      tags:
+        - Quotes
+      security:
+        - bearerAuth: []
+      summary: get quotes
+      responses:
+        "200":
+          $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /updatequote/{quote:id}:
+    post:
+      parameters:
+        - in: path
+          name: quote:id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Quotes
+      security:
+        - bearerAuth: []
+      summary: Update quote
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                quote_en:
+                  type: string
+                  example: where are you
+                quote_ka:
+                  type: string
+                  example: სად ხარ
+                thumbnail:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /quote/{quote:id}:
+    get:
+      parameters:
+        - in: path
+          name: quote:id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Quotes
+      security:
+        - bearerAuth: []
+      summary: get singlequote
+      responses:
+        "200":
+          $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /deletequote/{quote:id}:
+    post:
+      parameters:
+        - in: path
+          name: quote:id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Quotes
+      security:
+        - bearerAuth: []
+      summary: delete quote
+      responses:
+        "200":
+          $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /search:
+    post:
+      tags:
+        - Quotes
+      security:
+        - bearerAuth: []
+      summary:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                search:
+                  type: string
+                  example: "#hello father"
+      responses:
+        "200":
+          $ref: "../schemas/quote.yaml#/components/schemas/Quote"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

@@ -1,0 +1,35 @@
+paths:
+  /notification:
+    get:
+      tags:
+        - Notifications
+      security:
+        - bearerAuth: []
+      summary: get notifications
+      responses:
+      "200":
+        $ref: "../schemas/notification.yaml#/components/schemas/Notification"
+      "404":
+        $ref: "../common.yaml#/components/responses/404"
+  /marked:
+    post:
+      tags:
+        - Notifications
+      security:
+        - bearerAuth: []
+      summary: notifications
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                read:
+                  type: boolean
+                  example: 1
+        responses:
+        "200":
+          $ref: "../schemas/notification.yaml#/components/schemas/Notification"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

@@ -1,0 +1,99 @@
+paths:
+  /email/store:
+    post:
+      tags:
+        - Email
+      security:
+        - bearerAuth: []
+      summary: secondary email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: "1"
+                email:
+                  type: string
+                  example: "aleksandrekenchoshvili@redberry.ge"
+                token:
+                  type: string
+                  example: "nHzApjK6HCGTeESy4DhAtZhmOQa7eBzX3h5HGZ3zqwoqsTh99huusm5Chjis"
+              required:
+                - email
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../schemas/email.yaml#/components/schemas/Email"
+                  - type: object
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /email/verified:
+    post:
+      tags:
+        - Email
+      security:
+        - bearerAuth: []
+      summary: email verification
+      responses:
+        "200":
+          $ref: "../schemas/email.yaml#/components/schemas/Email"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /email/{id}:
+    post:
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Email
+      security:
+        - bearerAuth: []
+      summary: delete email
+      responses:
+        "200":
+          $ref: "../schemas/email.yaml#/components/schemas/Email"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /primary/update:
+    post:
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Email
+      security:
+        - bearerAuth: []
+      summary: make email primary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "aleksandrekenchoshvili@redberry.ge"
+      responses:
+        "200":
+          $ref: "../schemas/email.yaml#/components/schemas/Email"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

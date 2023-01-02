@@ -1,0 +1,31 @@
+paths:
+  /comment/{quote:id}:
+    post:
+      parameters:
+        - in: path
+          name: quote:id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Comment
+      security:
+        - bearerAuth: []
+      summary: add comment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  example: nice movie
+        responses:
+        "200":
+          $ref: "../schemas/comment.yaml#/components/schemas/Comment"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

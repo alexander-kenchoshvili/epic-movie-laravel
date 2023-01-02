@@ -1,0 +1,270 @@
+paths:
+  /register:
+    post:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "gela"
+                  minLength: 3
+                email:
+                  type: string
+                  example: "kenchoshvili.alexander1@gmail.com"
+                password:
+                  type: string
+                  minimum: 8
+                  example: 12345678
+                password_confirmation:
+                  type: string
+                  minimum: 8
+                  example: 12345678
+              required:
+                - username
+                - email
+                - password
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../schemas/auth.yaml#/components/schemas/User"
+                  - type: object
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+
+  /login:
+    post:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "gela"
+                  minLength: 3
+                email:
+                  type: string
+                  example: "kenchoshvili.alexander1@gmail.com"
+                password:
+                  type: string
+                  minimum: 8
+                  example: "12345678"
+              required:
+                - email
+                - password
+      responses:
+        "200":
+          description: entered
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../schemas/auth.yaml#/components/schemas/User"
+                  - type: object
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /me:
+    get:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: Return user
+      responses:
+        "200":
+          $ref: "../schemas/auth.yaml#/components/schemas/User"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /email-verify:
+    post:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: email verification
+      responses:
+        "200":
+          $ref: "../schemas/auth.yaml#/components/schemas/User"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /logout:
+    get:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: logout
+      responses:
+        "200":
+          $ref: "../schemas/auth.yaml#/components/schemas/User"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /updatecruds:
+    post:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: Update crudentials
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "bondo"
+                  minLength: 3
+                password:
+                  type: string
+                  minimum: 8
+                  example: 11111111
+                password_confirmation:
+                  type: string
+                  minimum: 8
+                  example: 11111111
+                thumbnail:
+                  type: file
+      responses:
+        "200":
+          description: updated
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../schemas/auth.yaml#/components/schemas/User"
+                  - type: object
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /forgot-password:
+    post:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: forgot password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "kenchoshvili.alexander1@gmail.com"
+      responses:
+        "200":
+          description: forgot password
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../schemas/auth.yaml#/components/schemas/User"
+                  - type: object
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /reset-password/{token}:
+    get:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: password sent
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              example: password sent
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /reset-password:
+    post:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: password update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "kenchoshvili.alexander1@gmail.com"
+                password:
+                  type: string
+                  example: 11111111
+                password_confirmation:
+                  type: string
+                  example: 11111111
+                token:
+                  type: string
+                  example: "nHzApjK6HCGTeESy4DhAtZhmOQa7eBzX3h5HGZ3zqwoqsTh99huusm5Chjis"
+      responses:
+        "200":
+          description: password updated
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../schemas/auth.yaml#/components/schemas/User"
+                  - type: object
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /google-auth:
+    get:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: google authenticate
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              example: authenticated
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /google:
+    get:
+      tags:
+        - Auth
+      security:
+        - bearerAuth: []
+      summary: google user
+      responses:
+        "200":
+          description: ok
+          content:
+            application/json:
+              example: user entered
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

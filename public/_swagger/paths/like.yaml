@@ -1,0 +1,34 @@
+paths:
+  /like/{quote:id}:
+    post:
+      parameters:
+        - in: path
+          name: quote:id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Like
+      security:
+        - bearerAuth: []
+      summary: like
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+                quote_id:
+                  type: integer
+                  example: 1
+        responses:
+        "200":
+          $ref: "../schemas/like.yaml#/components/schemas/Like"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

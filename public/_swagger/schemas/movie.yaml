@@ -1,0 +1,26 @@
+components:
+  schemas:
+    Movie:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            title:
+              type: json
+              example: { en: "interstellar", ka: "ინტერსტელარი" }
+            director:
+              type: json
+              example: { en: "nolan", ka: "ნოლანი" }
+            description:
+              type: json
+              example: { en: "cosmos trip", ka: "კოსმოსში მოგზაურობა" }
+            genre:
+              type: array
+              example: ["drama", "horror"]
+            thumbnail:
+              type: string
+              example: "http://127.0.0.1:8000/images/default.jpg"
+            user_id:
+              type: integer
+              example: 1
+        - $ref: "../common.yaml#/components/schemas/TimeStamps"

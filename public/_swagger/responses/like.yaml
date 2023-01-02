@@ -1,0 +1,15 @@
+components:
+  responses:
+    Like:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                allOf:
+                  - $ref: "../schemas/like.yaml#/components/schemas/Like"
+      "404":
+        allOf:
+          - $ref: "../common.yaml#/components/responses/404"

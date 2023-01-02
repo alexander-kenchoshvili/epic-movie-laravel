@@ -1,0 +1,15 @@
+components:
+  responses:
+    Notification:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                allOf:
+                  - $ref: "../schemas/notification.yaml#/components/schemas/Notification"
+      "404":
+        allOf:
+          - $ref: "../common.yaml#/components/responses/404"

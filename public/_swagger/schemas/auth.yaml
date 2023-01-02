@@ -1,0 +1,29 @@
+components:
+  schemas:
+    User:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            username:
+              type: string
+              example: "Madara Uchiha"
+            email:
+              type: string
+              example: "gela@gmail.com"
+            email_verified_at:
+              type: string
+              example: "2022-07-26T20:06:02.000000Z"
+            token:
+              type: string
+              example: "nHzApjK6HCGTeESy4DhAtZhmOQa7eBzX3h5HGZ3zqwoqsTh99huusm5Chjis"
+            thumbnail:
+              type: string
+              example: "http://127.0.0.1:8000/images/default.jpg"
+            password:
+              type: string
+              example: "12345678"
+            remember_token:
+              type: string
+              example: "LmNOLnWY9rS3YTwcD6SmOdnE71DR1fyQrgIbVMhpFkf8o1dWfgNhZhnN252w"
+        - $ref: "../common.yaml#/components/schemas/TimeStamps"

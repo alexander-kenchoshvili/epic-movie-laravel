@@ -1,0 +1,162 @@
+paths:
+  /movies:
+    post:
+      tags:
+        - Movies
+      security:
+        - bearerAuth: []
+      summary: post movies
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title_en:
+                  type: string
+                  example: interstellar
+                title_ka:
+                  type: string
+                  example: ინტერსტელარი
+                director_en:
+                  type: string
+                  example: "nolan"
+                director_ka:
+                  type: string
+                  example: "ნოლანი"
+                description_en:
+                  type: string
+                  example: "cosmos trip"
+                description_ka:
+                  type: string
+                  example: "კოსმოსში მოგზაურობა"
+                genre:
+                  type: string
+                  example: '["drama", "horror"]'
+                thumbnail:
+                  type: string
+                  format: binary
+              required:
+                - title_en
+                - title_ka
+                - description_en
+                - description_ka
+                - director_en
+                - director_ka
+                - genre
+                - thumbnail
+      responses:
+        "200":
+          description: movie create
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+                  - type: object
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /movie:
+    get:
+      tags:
+        - Movies
+      security:
+        - bearerAuth: []
+      summary: get movies
+      responses:
+        "200":
+          $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /singlemovie/{movie:id}:
+    get:
+      parameters:
+        - in: path
+          name: movie:id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Movies
+      security:
+        - bearerAuth: []
+      summary: get single movie
+      responses:
+        "200":
+          $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /updatemovie/{movie:id}:
+    post:
+      parameters:
+        - in: path
+          name: movie:id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Movies
+      security:
+        - bearerAuth: []
+      summary: Update movie
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title_en:
+                  type: string
+                  example: dark knight
+                title_ka:
+                  type: string
+                  example: შავი რაინდი
+                director_en:
+                  type: string
+                  example: "nolan"
+                director_ka:
+                  type: string
+                  example: "ნოლანი"
+                description_en:
+                  type: string
+                  example: "criminals in gothem"
+                description_ka:
+                  type: string
+                  example: "კრიმინალები გოთჰემში"
+                genre:
+                  type: string
+                  example: '["drama", "horror"]'
+                thumbnail:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"
+  /delete/{movie:id}:
+    post:
+      parameters:
+        - in: path
+          name: movie:id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            example: 1
+      tags:
+        - Movies
+      security:
+        - bearerAuth: []
+      summary: delete movie
+      responses:
+        "200":
+          $ref: "../schemas/movie.yaml#/components/schemas/Movie"
+        "404":
+          $ref: "../common.yaml#/components/responses/404"

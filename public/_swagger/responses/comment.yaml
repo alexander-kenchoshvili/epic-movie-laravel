@@ -1,0 +1,15 @@
+components:
+  responses:
+    Comment:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                allOf:
+                  - $ref: "../schemas/comment.yaml#/components/schemas/Comment"
+      "404":
+        allOf:
+          - $ref: "../common.yaml#/components/responses/404"

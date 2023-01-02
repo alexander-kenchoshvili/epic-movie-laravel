@@ -1,0 +1,20 @@
+components:
+  schemas:
+    Quote:
+      allOf:
+        - $ref: "../common.yaml#/components/schemas/Id"
+        - type: object
+          properties:
+            quote:
+              type: json
+              example: { en: "hello father", ka: "გამარჯობა მამა" }
+            thumbnail:
+              type: string
+              example: "http://127.0.0.1:8000/images/default.jpg"
+            user_id:
+              type: integer
+              example: 1
+            movie_id:
+              type: integer
+              example: 1
+        - $ref: "../common.yaml#/components/schemas/TimeStamps"
